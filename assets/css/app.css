@@ -1,0 +1,85 @@
+body{
+    background-color:lightgrey;
+    font-family:Arial, helvetica, sans-serif;
+    color:#fff;
+}
+
+h2{
+    text-transform:uppercase;
+    text-align: center;
+    font-size:1.15rem;
+    margin-bottom:8px;
+    border-bottom: 1px solid lightgrey;
+    padding-bottom:10px;
+}
+
+#loading{
+    position:fixed;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%;
+    background-color:#fff;
+    z-index:20;
+    opacity:1;
+    transition:0.8s linear all;
+}
+
+#loading.inactive{
+    opacity:0;
+    z-index:-1;
+}
+
+
+.container{
+    box-sizing:border-box;
+    position:fixed;
+    top:5%;
+    left:5%;
+    width:90%;
+    height:90%;
+    background-color:#fff;
+    border:3px solid lightslategrey;
+    border-left:none;
+}
+
+.toolbar{
+    overflow:hidden;
+    height:100%;
+    width:130px;
+    background-color:lightslategray;
+}
+
+.toolbar ul{
+    margin-top:0;
+    padding:10px;
+    list-style: none;
+    overflow:hidden;
+}
+
+.toolbar .tool{
+    box-sizing:border-box;
+    border:2px solid #fff;
+    background: linear-gradient(to bottom,lightgrey, #fff);
+    width:47%;
+    height:55px;
+    line-height:55px;
+    text-align:center;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.toolbar .tool:nth-of-type(odd){
+    float:left;
+}
+
+.toolbar .tool:nth-of-type(even){
+    float:right;
+}
+
+.toolbar .tool i{
+    margin-top:-4px;
+    vertical-align:middle;
+    font-size:2.1rem;
+    color:darkslategray;
+}
