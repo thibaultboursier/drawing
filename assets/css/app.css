@@ -2,15 +2,18 @@ body{
     background-color:lightgrey;
     font-family:Arial, helvetica, sans-serif;
     color:#fff;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 h2{
-    text-transform:uppercase;
     text-align: center;
-    font-size:1.15rem;
-    margin-bottom:8px;
-    border-bottom: 1px solid lightgrey;
-    padding-bottom:10px;
+    font-size:1.25rem;
+    margin-bottom:0px;
 }
 
 #loading{
@@ -34,39 +37,57 @@ h2{
 .container{
     box-sizing:border-box;
     position:fixed;
-    top:5%;
-    left:5%;
-    width:90%;
-    height:90%;
+    top:50%;
+    left:50%;
+    margin-top:-350px;
+    margin-left:-480px;
+    width:960px;
+    height:700px;
     background-color:#fff;
-    border:3px solid lightslategrey;
+    border:3px solid darkslateblue;
     border-left:none;
 }
 
 .toolbar{
     overflow:hidden;
     height:100%;
-    width:130px;
-    background-color:lightslategray;
+    width:140px;
+    background: darkslateblue;
+    float:left;
+}
+
+#canvas{
+    float:right;
+    height:700px;
+    width:816px;
 }
 
 .toolbar ul{
     margin-top:0;
-    padding:10px;
+    padding:12px;
     list-style: none;
     overflow:hidden;
+    border-bottom: 1px solid mediumpurple;
+    padding-bottom:20px;
 }
 
 .toolbar .tool{
     box-sizing:border-box;
-    border:2px solid #fff;
+    border:3px solid #fff;
     background: linear-gradient(to bottom,lightgrey, #fff);
-    width:47%;
-    height:55px;
-    line-height:55px;
+    width:45%;
+    height:50px;
+    line-height:50px;
     text-align:center;
     border-radius:8px;
     cursor:pointer;
+    transition:0.5s all linear;
+}
+
+.toolbar .tool.active{
+    background: linear-gradient(to top, lightgoldenrodyellow, #fff);
+    border-color:yellowgreen;
+    cursor:default;
 }
 
 .toolbar .tool:nth-of-type(odd){
@@ -81,5 +102,13 @@ h2{
     margin-top:-4px;
     vertical-align:middle;
     font-size:2.1rem;
-    color:darkslategray;
+    color:darkslateblue;
+}
+
+.toolbar .size{
+    box-sizing:border-box;
+    height:50px;
+    float:left;
+    cursor:pointer;
+    transition:0.5s all linear;
 }
