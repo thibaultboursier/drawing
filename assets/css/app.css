@@ -105,10 +105,37 @@ h2{
     color:darkslateblue;
 }
 
+.toolbar .sizes{
+    height:50px;
+}
+
 .toolbar .size{
     box-sizing:border-box;
     height:50px;
     float:left;
     cursor:pointer;
     transition:0.5s all linear;
+    margin-right:8px;
 }
+
+.toolbar .size.active{
+    color:yellowgreen;
+}
+
+.toolbar .size i{
+    vertical-align:middle;
+    line-height:50px;
+}
+
+.toolbar .size.small i{
+    font-size:0.8rem;
+}
+
+.toolbar .size.medium i{
+    font-size:1.8rem;
+}
+
+.toolbar .size.large i{
+    font-size:2.2rem;
+}
+

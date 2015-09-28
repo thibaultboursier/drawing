@@ -21,6 +21,7 @@
             j = 0,
             tempTool,
             currentTool,
+            tempSize,
             currentLineWidth;
 
         // tool
@@ -84,6 +85,13 @@
         function changeLineWidth (size) {
 
             var width = size.getAttribute('data-size');
+
+            tempSize = tempSize || size;
+
+            tempSize.classList.remove('active');
+
+            tempSize = size;
+            tempSize.classList.add('active');
 
             switch (width) {
                 case 'small':
