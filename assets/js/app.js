@@ -178,7 +178,7 @@
             params.posX = e.pageX - left;
             params.posY = e.pageY - top;
             params.isDown = isDown;
-            params.strokeStyle = self.Tools.getCurrentStrokeStyle || 'blue';
+            params.strokeStyle = self.Tools.getCurrentStrokeStyle || '#000';
             params.lineWidth = self.Tools.getCurrentLineWidth() || 20;
 
             console.log(self.Tools.getCurrentLineWidth());

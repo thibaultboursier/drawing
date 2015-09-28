@@ -132,10 +132,36 @@ h2{
 }
 
 .toolbar .size.medium i{
-    font-size:1.8rem;
+    font-size:1.5rem;
 }
 
 .toolbar .size.large i{
     font-size:2.2rem;
 }
 
+.toolbar .color{
+    box-sizing:border-box;
+    height:20px;
+    width:20px;
+    float:left;
+    cursor:pointer;
+    transition:0.5s all linear;
+    margin-right:8px;
+    border:2px solid #fff;
+}
+
+.toolbar .color.red{
+    background-color:red;
+}
+
+.toolbar .color.blue{
+    background-color:blue;
+}
+
+.toolbar .color.grey{
+    background-color:grey;
+}
+
+.toolbar .color.orange{
+    background-color:orange;
+}
