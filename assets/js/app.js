@@ -14,15 +14,20 @@
         var self,
             tool = document.getElementsByClassName('tool'),
             size = document.getElementsByClassName('size'),
+            color = document.getElementsByClassName('color'),
             loading = document.getElementById('loading'),
             tool_len = tool.length,
             size_len = size.length,
+            color_len = color.length,
             i = 0,
             j = 0,
+            k = 0,
             tempTool,
             currentTool,
             tempSize,
-            currentLineWidth;
+            currentLineWidth,
+            tempColor,
+            currentStrokeStyle;
 
         // tool
         var canvas = document.createElement("canvas"),
@@ -40,10 +45,13 @@
 
             self = _this;
 
+            showInstructions();
+
             loading.classList.add('inactive');
 
             for (i; i < tool_len; i++) {
-                tool[i].onclick = function () {
+                tool[i].onclick = function (e) {
+                    e.stopPropagation();
                     changeTool(this);
                 }
             }
@@ -54,6 +62,64 @@
                     changeLineWidth(this);
                 }
             }
+
+            for (k; k < color_len; k++) {
+                color[k].onclick = function (e) {
+                    e.stopPropagation();
+                    changeStrokeStyle(this);
+                }
+            }
+        }
+
+        function showInstructions () {
+                return (function () {
+                    var timer = 0,
+                        blocks_instructions = document.getElementsByClassName('instruction'),
+                        blocks_instructions_len = blocks_instructions.length,
+                        blocks_arr = [],
+                        show_time = 4000,
+                        i = 0,
+                        y = 0,
+                        instruction_a,
+                        instruction_b,
+                        popin,
+                        instruction_text,
+                        instruction_index,
+                        template;
+
+                    for (i; i < blocks_instructions_len; i++) {
+                        if (blocks_instructions[i].nodeType == 1) {
+                            blocks_arr.push(blocks_instructions[i]);
+                        }
+                    }
+
+                    blocks_arr.sort(function(a, b) {
+                        instruction_a = a.getAttribute('data-instruction-index');
+                        instruction_b = b.getAttribute('data-instruction-index');
+
+                        return instruction_a == instruction_b ? 0 : (instruction_a > instruction_b ? 1 : -1);
+                    });
+
+                for (y; y < blocks_arr.length; y++) {
+
+                    instruction_text = blocks_arr[y].getAttribute('data-instruction-text');
+                    instruction_index = blocks_arr[y].getAttribute('data-instruction-index');
+
+                    template =  '<div class="wrapper">' +
+                                '<div class="arrow"></div>' +
+                                '<p>' +
+                                '<span class="index">' + instruction_index + '</span>' +
+                                '<span class="text">' + instruction_text + '</span>' +
+                                '</p>' +
+                                '</div>';
+
+                    popin = document.createElement('div');
+                    popin.setAttribute('class', 'popin instruction');
+                    popin.setAttribute('data-instruction', y);
+                    popin.innerHTML = template;
+                    blocks_arr[y].appendChild(popin);
+                }
+            })();
         }
 
         function changeTool (tool) {
@@ -108,6 +174,20 @@
             currentLineWidth = width;
         }
 
+        function changeStrokeStyle (color) {
+
+            var style = color.getAttribute('data-color');
+
+            tempColor= tempColor || color;
+
+            tempColor.classList.remove('active');
+
+            tempColor = color;
+            tempColor.classList.add('active');
+
+            currentStrokeStyle = style;
+        }
+
         function getCurrentTool () {
             return currentTool;
         }
@@ -116,12 +196,18 @@
             return currentLineWidth;
         }
 
+        function getCurrentStrokeStyle () {
+            return currentStrokeStyle;
+        }
+
         return {
             init: init,
+            showInstructions: showInstructions,
             changeTool: changeTool,
             changeLineWidth: changeLineWidth,
             getCurrentTool: getCurrentTool,
-            getCurrentLineWidth: getCurrentLineWidth
+            getCurrentLineWidth: getCurrentLineWidth,
+            getCurrentStrokeStyle: getCurrentStrokeStyle
         }
     })();
 
@@ -178,10 +264,8 @@
             params.posX = e.pageX - left;
             params.posY = e.pageY - top;
             params.isDown = isDown;
-            params.strokeStyle = self.Tools.getCurrentStrokeStyle || '#000';
+            params.strokeStyle = self.Tools.getCurrentStrokeStyle() || '#000';
             params.lineWidth = self.Tools.getCurrentLineWidth() || 20;
-
-            console.log(self.Tools.getCurrentLineWidth());
         }
 
         function draw() {

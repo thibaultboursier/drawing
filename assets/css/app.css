@@ -49,9 +49,8 @@ h2{
 }
 
 .toolbar{
-    overflow:hidden;
     height:100%;
-    width:140px;
+    width:160px;
     background: darkslateblue;
     float:left;
 }
@@ -59,16 +58,98 @@ h2{
 #canvas{
     float:right;
     height:700px;
-    width:816px;
+    width:756px;
 }
 
 .toolbar ul{
     margin-top:0;
+    margin-bottom:0;
     padding:12px;
     list-style: none;
     overflow:hidden;
-    border-bottom: 1px solid mediumpurple;
     padding-bottom:20px;
+}
+
+.toolbar::after,
+.toolbar ul::after{
+    content:"";
+    display:table;
+    clear:both;
+}
+
+.toolbar .tool-block{
+    border-bottom: 1px solid mediumpurple;
+    position:relative;
+}
+
+.toolbar .tool-block .popin{
+    box-sizing:border-box;
+    position:absolute;
+    top:0;
+    right:-430px;
+    height:100px;
+    width:400px;
+    background-color:#fff;
+    box-shadow: 0px 0px 4px 4px #f3f3f3;
+}
+
+.toolbar .tool-block .popin .wrapper{
+    position:relative;
+}
+
+.toolbar .tool-block .popin .arrow{
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-right:20px solid mediumorchid;
+    position:absolute;
+    left:-20px;
+    top:50%;
+    margin-top:-20px;
+}
+
+.toolbar .tool-block .popin p{
+    padding:8px 10px;
+    color:darkslateblue;
+}
+
+.toolbar .tool-block .popin .index{
+    display:inline-block;
+    color:darkslateblue;
+    border-radius:28px;
+    padding:5px 12px;
+    font-weight:600;
+    font-size:1.5rem;
+    border:5px solid darkslateblue;
+}
+
+.toolbar .tool-block .popin .text{
+    font-size:1.4rem;
+    display:inline-block;
+    margin-left:10px;
+}
+
+.toolbar .options{
+    padding:0 10px;
+    clear:both;
+    margin-bottom:20px;
+    font-size:0.85rem;
+}
+
+.toolbar .options a{
+    color:#fff;
+    text-decoration:none;
+    opacity:0.7;
+    transition:0.5s linear all;
+}
+
+.toolbar .options i{
+    margin-right:5px;
+}
+
+.toolbar .options:hover a{
+    opacity:1;
 }
 
 .toolbar .tool{
@@ -106,12 +187,13 @@ h2{
 }
 
 .toolbar .sizes{
-    height:50px;
+    height:40px;
+    padding-bottom:10px;
 }
 
 .toolbar .size{
     box-sizing:border-box;
-    height:50px;
+    height:40px;
     float:left;
     cursor:pointer;
     transition:0.5s all linear;
@@ -124,7 +206,7 @@ h2{
 
 .toolbar .size i{
     vertical-align:middle;
-    line-height:50px;
+    line-height:40px;
 }
 
 .toolbar .size.small i{
@@ -148,6 +230,12 @@ h2{
     transition:0.5s all linear;
     margin-right:8px;
     border:2px solid #fff;
+    border-radius:4px;
+}
+
+.toolbar .color.active{
+    border-color:yellowgreen;
+    border-width:3px;
 }
 
 .toolbar .color.red{
