@@ -85,7 +85,52 @@
                         popin,
                         instruction_text,
                         instruction_index,
-                        template;
+                        template,
+                        currentPopin;
+
+                    function getTemplate (index, text) {
+                        return '<div class="wrapper">' +
+                            '<div class="arrow"></div>' +
+                            '<p>' +
+                            '<span class="index">' + index + '</span>' +
+                            '<span class="text">' + text + '</span>' +
+                            '</p>' +
+                            '</div>';
+                    }
+
+                    function insertBlock (y) {
+                        setTimeout(function () {
+                            var index;
+
+                            (function () {
+                                if (y === 0) {
+                                    return;
+                                }
+
+                                currentPopin.classList.remove('active');
+                            })();
+
+                            if (y === blocks_arr.length) {
+                                return;
+                            }
+
+                            instruction_text = blocks_arr[y].getAttribute('data-instruction-text');
+                            instruction_index = blocks_arr[y].getAttribute('data-instruction-index');
+
+                            template = getTemplate(instruction_index, instruction_text);
+
+                            popin = document.createElement('div');
+                            popin.setAttribute('class', 'popin instruction');
+                            popin.setAttribute('data-instruction', instruction_index);
+                            popin.innerHTML = template;
+
+                            blocks_arr[y].appendChild(popin);
+
+                            currentPopin = popin;
+
+                            popin.classList.add('active');
+                        }, y * 4000);
+                    }
 
                     for (i; i < blocks_instructions_len; i++) {
                         if (blocks_instructions[i].nodeType == 1) {
@@ -100,25 +145,10 @@
                         return instruction_a == instruction_b ? 0 : (instruction_a > instruction_b ? 1 : -1);
                     });
 
-                for (y; y < blocks_arr.length; y++) {
+                    for (y; y < blocks_arr.length + 1; y++) {
+                        insertBlock(y);
+                    }
 
-                    instruction_text = blocks_arr[y].getAttribute('data-instruction-text');
-                    instruction_index = blocks_arr[y].getAttribute('data-instruction-index');
-
-                    template =  '<div class="wrapper">' +
-                                '<div class="arrow"></div>' +
-                                '<p>' +
-                                '<span class="index">' + instruction_index + '</span>' +
-                                '<span class="text">' + instruction_text + '</span>' +
-                                '</p>' +
-                                '</div>';
-
-                    popin = document.createElement('div');
-                    popin.setAttribute('class', 'popin instruction');
-                    popin.setAttribute('data-instruction', y);
-                    popin.innerHTML = template;
-                    blocks_arr[y].appendChild(popin);
-                }
             })();
         }
 
