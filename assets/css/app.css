@@ -13,7 +13,8 @@ body{
 h2{
     text-align: center;
     font-size:1.25rem;
-    margin-bottom:0px;
+    margin-bottom:0;
+    margin-top:0;
 }
 
 #loading{
@@ -41,11 +42,44 @@ h2{
     left:50%;
     margin-top:-350px;
     margin-left:-480px;
-    width:960px;
+    width:1024px;
     height:700px;
-    background-color:#fff;
-    border:3px solid darkslateblue;
     border-left:none;
+}
+
+#canvas{
+    float:left;
+    height:694px;
+    width:698px;
+    border:3px solid darkslateblue;
+    background: url('../images/icons/icon_grid.png') repeat;
+}
+
+#drawings{
+    height:100%;
+    width:160px;
+    float:right;
+}
+
+#drawings ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+
+#drawings .drawing{
+    background-color:#fff;
+    transition:1s all linear;
+    opacity:0;
+}
+
+#drawings .drawing.active{
+    background-color:#fff;
+    opacity:1;
+}
+
+#drawings .drawing img{
+    width:100%;
 }
 
 .toolbar{
@@ -55,16 +89,11 @@ h2{
     float:left;
 }
 
-#canvas{
-    float:right;
-    height:700px;
-    width:797px;
-}
 
 .toolbar ul{
     margin-top:0;
     margin-bottom:0;
-    padding:12px;
+    padding:20px;
     list-style: none;
     overflow:hidden;
     padding-bottom:20px;
@@ -80,24 +109,30 @@ h2{
 .toolbar .tool-block{
     border-bottom: 1px solid mediumpurple;
     position:relative;
+    transition:0.5s all linear;
+    padding-top:15px;
+}
+
+.toolbar .tool-block.active{
+    background-color:mediumorchid;
 }
 
 .toolbar .tool-block .popin{
     box-sizing:border-box;
     position:absolute;
-    top:0;
+    top:15px;
     right:-430px;
     height:100px;
     width:400px;
     background-color:#fff;
-    box-shadow: 0px 0px 4px 4px #f3f3f3;
+    box-shadow: 0px 0px 2px 2px #f3f3f3;
     opacity:0;
     transition:0.5s all linear;
     z-index:-1;
 }
 
 .toolbar .tool-block .popin.active{
-    opacity:1;
+    opacity:0.95;
     z-index:10000;
 }
 
@@ -139,7 +174,7 @@ h2{
 }
 
 .toolbar .options{
-    padding:0 10px;
+    padding:0 20px;
     clear:both;
     margin-bottom:20px;
     font-size:0.85rem;

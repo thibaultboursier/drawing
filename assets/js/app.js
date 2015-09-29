@@ -7,6 +7,7 @@
     var App = function () {
         this.Tools.init(this);
         this.Canvas.init(this);
+        this.Drawings.init(this);
     };
 
     App.prototype.Tools = (function () {
@@ -69,6 +70,11 @@
                     changeStrokeStyle(this);
                 }
             }
+
+            var save = document.getElementById('save').onclick = function () {
+              console.log(self.Canvas.saveCanvas());
+            };
+
         }
 
         function showInstructions () {
@@ -86,6 +92,7 @@
                         instruction_text,
                         instruction_index,
                         template,
+                        currentBlock,
                         currentPopin;
 
                     function getTemplate (index, text) {
@@ -108,6 +115,7 @@
                                 }
 
                                 currentPopin.classList.remove('active');
+                                currentBlock.classList.remove('active');
                             })();
 
                             if (y === blocks_arr.length) {
@@ -127,8 +135,11 @@
                             blocks_arr[y].appendChild(popin);
 
                             currentPopin = popin;
+                            currentBlock = blocks_arr[y];
 
-                            popin.classList.add('active');
+                            currentPopin.classList.add('active');
+                            currentBlock.classList.add('active');
+
                         }, y * 4000);
                     }
 
@@ -248,6 +259,7 @@
             ctx = canvas.getContext("2d"),
             mousePressed = false,
             params = {},
+            canvas_loaded,
             lastX,
             lastY;
 
@@ -298,6 +310,17 @@
             params.lineWidth = self.Tools.getCurrentLineWidth() || 20;
         }
 
+        function getCanvas () {
+            return canvas.toDataURL('image/png');
+        }
+
+        function saveCanvas () {
+            if (typeof localStorage !== 'undefined') {
+                localStorage.setItem("drawing-test", getCanvas());
+            }
+
+        }
+
         function draw() {
 
             if (params.isDown) {
@@ -316,7 +339,84 @@
         }
 
         return {
-            init: init
+            init: init,
+            getCanvas: getCanvas,
+            saveCanvas: saveCanvas
+        }
+    })();
+
+    App.prototype.Drawings = (function () {
+        var self,
+            count = 0,
+            drawings_len;
+
+        function init (_this) {
+
+            self = _this;
+
+            function watchDrawings () {
+                drawings_len = getAllDrawings().length;
+
+                if (drawings_len !== count) {
+                    count = drawings_len;
+                    refreshDrawings();
+                }
+            }
+
+            function refreshDrawings () {
+                canvas_loaded = getAllDrawings ();
+
+                var canvas_list = document.getElementById('drawings'),
+                    template = '';
+
+                if (canvas_loaded.length === 0) {
+                    return;
+                }
+
+                template += '<ul>';
+
+                for (var y = 0; y < canvas_loaded.length; y++) {
+                    var img=new Image();
+
+                    img.src = localStorage.getItem('drawing-' + canvas_loaded[y]);
+                    template += '<li id="drawing-'+ canvas_loaded[y] + '" class="drawing"></li>';
+
+                    canvas_list.innerHTML = template;
+
+                    var drawing = document.getElementById('drawing-' + canvas_loaded[y]);
+                    drawing.appendChild(img);
+                    drawing.classList.add('active');
+                }
+
+                template += '</ul>';
+            }
+
+            setInterval(watchDrawings, 2000);
+
+        }
+
+        function getAllDrawings () {
+            var drawings = [],
+                item,
+                name,
+                i;
+
+            if (typeof localStorage !== 'undefined') {
+                for (i in localStorage) {
+                    name = i.split('-');
+
+                    if (name[0] === 'drawing') {
+                        drawings.push(name[1]);
+                    }
+                }
+            }
+
+            return drawings;
+        }
+
+        return {
+            init: init,
+            getAllDrawings: getAllDrawings
         }
     })();
 
