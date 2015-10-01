@@ -6,6 +6,27 @@ App.Drawings = (function (App) {
 
     function init () {
 
+        function getTemplate (name) {
+            var template = '';
+
+            template += '<li id="drawing-'+ name + '" class="drawing"></li>';
+
+        }
+
+        function insertDrawing (name) {
+            var canvas_list = document.getElementById('drawings').firstChild,
+                canvas_list_html = canvas_list.innerHTML,
+                img = new Image();
+
+            img.src = localStorage.getItem('drawing-' + name);
+
+            canvas_list.innerHTML = canvas_list_html;
+
+            var drawing = document.getElementById('drawing-' + name);
+            drawing.appendChild(img);
+            drawing.classList.add('active');
+        }
+
         function watchDrawings () {
             drawings_len = getAllDrawings().length;
 
@@ -16,31 +37,15 @@ App.Drawings = (function (App) {
         }
 
         function refreshDrawings () {
-            canvas_loaded = getAllDrawings ();
-
-            var canvas_list = document.getElementById('drawings'),
-                template = '';
+            var canvas_loaded = getAllDrawings ();
 
             if (canvas_loaded.length === 0) {
                 return;
             }
 
-            template += '<ul>';
-
             for (var y = 0; y < canvas_loaded.length; y++) {
-                var img=new Image();
-
-                img.src = localStorage.getItem('drawing-' + canvas_loaded[y]);
-                template += '<li id="drawing-'+ canvas_loaded[y] + '" class="drawing"></li>';
-
-                canvas_list.innerHTML = template;
-
-                var drawing = document.getElementById('drawing-' + canvas_loaded[y]);
-                drawing.appendChild(img);
-                drawing.classList.add('active');
+                insertDrawing(name);
             }
-
-            template += '</ul>';
         }
 
         setInterval(watchDrawings, 2000);

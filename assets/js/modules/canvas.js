@@ -9,8 +9,8 @@ App.Canvas = (function (App) {
         lastX,
         lastY;
 
-    canvas.width = 816;
-    canvas.height = 700;
+    canvas.width = 698;
+    canvas.height = 694;
 
     function init () {
 
@@ -25,6 +25,7 @@ App.Canvas = (function (App) {
                 }
             }
         }, false);
+
         canvas.addEventListener("mousedown", function (e) {
             mousePressed = true;
 
@@ -35,6 +36,7 @@ App.Canvas = (function (App) {
                     break;
             }
         }, false);
+
         canvas.addEventListener("mouseup", function (e) {
             mousePressed = false;
         }, false);

@@ -5,6 +5,7 @@ App.Tools = (function () {
         size = document.getElementsByClassName('size'),
         color = document.getElementsByClassName('color'),
         loading = document.getElementById('loading'),
+        save = document.getElementById('save'),
         tool_len = tool.length,
         size_len = size.length,
         color_len = color.length,
@@ -57,8 +58,8 @@ App.Tools = (function () {
             }
         }
 
-        var save = document.getElementById('save').onclick = function () {
-            console.log(App.Canvas.saveCanvas());
+        save.onclick = function (e) {
+            App.Canvas.saveCanvas();
         };
 
     }
@@ -164,7 +165,7 @@ App.Tools = (function () {
         canvas.width = 74;
         canvas.height = 74;
 
-        ctx.fillStyle = "#000000";
+        ctx.fillStyle = "#000";
         ctx.font = "3.4em FontAwesome";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
@@ -172,7 +173,7 @@ App.Tools = (function () {
 
         dataURL = canvas.toDataURL('image/png');
 
-        document.getElementsByTagName('body')[0].style.cursor = 'url(' + dataURL +'), auto';
+        document.getElementsByTagName('body')[0].style.cursor = 'url(' + dataURL +') -1 32, auto';
     }
 
     function changeLineWidth (size) {
