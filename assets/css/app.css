@@ -174,6 +174,12 @@ h2{
     margin-left:10px;
 }
 
+.toolbar .tool-block .action i{
+    cursor:pointer;
+    font-size:1.6rem;
+    margin-right:6px;
+}
+
 .toolbar .options{
     padding:0 20px;
     clear:both;

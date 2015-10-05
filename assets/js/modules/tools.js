@@ -173,6 +173,10 @@ App.Tools = (function () {
 
         dataURL = canvas.toDataURL('image/png');
 
+        setCursor();
+    }
+
+    function setCursor () {
         document.getElementsByTagName('body')[0].style.cursor = 'url(' + dataURL +') -1 32, auto';
     }
 
@@ -200,6 +204,8 @@ App.Tools = (function () {
         }
 
         currentLineWidth = width;
+
+        setCursor();
     }
 
     function changeStrokeStyle (color) {
