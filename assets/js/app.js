@@ -6,6 +6,7 @@
 
     window.App = window.App || {};
 
+    /** Init Application */
     App.Init = function () {
         App.Tools.init();
         App.Canvas.init();

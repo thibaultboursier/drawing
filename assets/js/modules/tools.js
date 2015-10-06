@@ -31,7 +31,7 @@ App.Tools = (function () {
         'eraser': '\uf12d'
     };
 
-    function init (_this) {
+    function init () {
 
         showInstructions();
 
