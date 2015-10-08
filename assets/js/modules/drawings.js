@@ -1,4 +1,4 @@
-App.Drawings = (function (App) {
+App.Drawings = (function () {
     'use strict';
 
     var count = 0,
@@ -75,4 +75,4 @@ App.Drawings = (function (App) {
         init: init,
         getAllDrawings: getAllDrawings
     }
-})(App);
+})();

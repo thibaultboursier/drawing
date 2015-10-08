@@ -1,4 +1,4 @@
-App.Canvas = (function (App) {
+App.Canvas = (function () {
     'use strict';
 
     var canvas = document.getElementById('canvas'),
@@ -67,6 +67,10 @@ App.Canvas = (function (App) {
 
     }
 
+    function showSaveForm () {
+        App.Common.popin.show();
+    }
+
     function draw() {
 
         if (params.isDown) {
@@ -87,6 +91,7 @@ App.Canvas = (function (App) {
     return {
         init: init,
         getCanvas: getCanvas,
-        saveCanvas: saveCanvas
+        saveCanvas: saveCanvas,
+        showSaveForm: showSaveForm
     }
-})(App);
+})();

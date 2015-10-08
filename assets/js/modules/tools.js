@@ -19,20 +19,18 @@ App.Tools = (function () {
         tempColor,
         currentStrokeStyle;
 
-    // tool
     var canvas = document.createElement("canvas"),
         ctx = canvas.getContext("2d"),
         dataURL,
         icon;
 
-    // icons
     var icons = {
         'pencil': '\uf040',
         'eraser': '\uf12d'
     };
 
+    /** Init */
     function init () {
-
         showInstructions();
 
         loading.classList.add('inactive');
@@ -59,11 +57,13 @@ App.Tools = (function () {
         }
 
         save.onclick = function (e) {
-            App.Canvas.saveCanvas();
+            e.preventDefault();
+            App.Canvas.showSaveForm();
         };
 
     }
 
+    /** Show instructions */
     function showInstructions () {
         return (function () {
             var timer = 0,
@@ -150,6 +150,10 @@ App.Tools = (function () {
         })();
     }
 
+    /**
+     * Change tool
+     * @param {Object} tool - Tool Dom object
+     */
     function changeTool (tool) {
 
         tempTool = tempTool || tool;
@@ -176,10 +180,15 @@ App.Tools = (function () {
         setCursor();
     }
 
+    /** Set cursor */
     function setCursor () {
         document.getElementsByTagName('body')[0].style.cursor = 'url(' + dataURL +') -1 32, auto';
     }
 
+    /**
+     * Change line width
+     * @param {Object} size - Size Dom object
+     */
     function changeLineWidth (size) {
 
         var width = size.getAttribute('data-size');
@@ -208,6 +217,10 @@ App.Tools = (function () {
         setCursor();
     }
 
+    /**
+     * Change stroke style
+     * @param {Object} color - Color Dom object
+     */
     function changeStrokeStyle (color) {
 
         var style = color.getAttribute('data-color');
@@ -222,14 +235,17 @@ App.Tools = (function () {
         currentStrokeStyle = style;
     }
 
+    /** Get current tool */
     function getCurrentTool () {
         return currentTool;
     }
 
+    /** Get current line width */
     function getCurrentLineWidth () {
         return currentLineWidth;
     }
 
+    /** Get current stroke style */
     function getCurrentStrokeStyle () {
         return currentStrokeStyle;
     }
@@ -243,4 +259,4 @@ App.Tools = (function () {
         getCurrentLineWidth: getCurrentLineWidth,
         getCurrentStrokeStyle: getCurrentStrokeStyle
     }
-})(App);
+})();

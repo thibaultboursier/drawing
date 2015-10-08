@@ -1,15 +1,31 @@
-App.Common = (function (App) {
+App.Common = (function () {
     'use strict';
 
-    var overlay = (function () {
-        var overlay = document.getElementById('overlay');
+    /**
+     * Handle application popins
+     * @return {Object}
+     */
+    var popin = (function () {
+        var _overlay = document.getElementById('overlay');
 
-        function show () {
+        /** Show overlay */
+        function _showOverlay () {
             overlay.classList.add('active');
         }
 
-        function hide () {
+        /** Hide overlay */
+        function _hideOverlay () {
             overlay.classList.remove('active');
+        }
+
+        /** Show popin */
+        function show () {
+            _showOverlay();
+        }
+
+        /** Hide popin */
+        function hide () {
+            _hideOverlay();
         }
 
         return {
@@ -25,6 +41,6 @@ App.Common = (function (App) {
 
     return {
         init: init,
-        overlay: overlay
+        popin: popin
     }
-})(App);
+})();
