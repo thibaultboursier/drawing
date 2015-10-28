@@ -35,9 +35,7 @@ App.Common = (function () {
     })();
 
     /** Init */
-    function init () {
-
-    }
+    function init () {}
 
     return {
         init: init,
